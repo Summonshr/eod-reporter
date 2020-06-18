@@ -57,19 +57,19 @@
 			<tr>
 				<td>Daily</td>
 				<td><input type="date" @change="addTime('daily')" v-model="batch.daily.run_for_date"/></td>
-				<td><input v-model="batch.daily.count"/></td>
+				<td><input type="number" v-model="batch.daily.count"/></td>
 				<td><span v-text="batch.daily.time"></span></td>
 			</tr>
 			<tr>
 				<td>Daily</td>
 				<td><input type="date" @change="addTime('daily_prscd')" v-model="batch.daily_prscd.run_for_date"/></td>
-				<td><input v-model="batch.daily_prscd.count"/></td>
+				<td><input type="number" v-model="batch.daily_prscd.count"/></td>
 				<td><span v-text="batch.daily_prscd.time"></span></td>
 			</tr>
 			<tr>
 				<td>Monthly</td>
 				<td><input type="date" @change="addTime('monthly')" v-model="batch.monthly.run_for_date"/></td>
-				<td><input v-model="batch.monthly.count"/></td>
+				<td><input type="number" v-model="batch.monthly.count"/></td>
 				<td><span v-text="batch.monthly.time" ></span></td>
 			</tr>
 			<tr>
@@ -87,7 +87,7 @@
 			<tr>
 				<td>Yearly</td>
 				<td><input type="date" @change="addTime('yearly')" v-model="batch.yearly.run_for_date"/></td>
-				<td><input v-model="batch.yearly.count"/></td>
+				<td><input type="number" v-model="batch.yearly.count"/></td>
 				<td><span v-text="batch.yearly.time"></span></td>
 			</tr>
 		</tbody>

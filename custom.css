@@ -49,6 +49,14 @@ button:hover {
 
 @media print {
   .page-break {page-break-after: always;}
+  input[type=text], input[type=number],input[type=date] {
+    width: 90%;
+    padding: 5px 10px;
+    border: 1px transparent ;
+    border-style: inset;
+    border-radius: 3px;
+    background: transparent;
+  }
 }
 
 /* Chrome, Safari, Edge, Opera */
