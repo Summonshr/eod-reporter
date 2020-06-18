@@ -1,0 +1,541 @@
+<div id="app">
+	<table>
+		<tbody>
+			<tr>
+				<td>EOD for Day: </td>
+				<td><input type="date" placeholder="Date: dd/mm/yyyy"/></td>
+			</tr>
+			<tr>
+				<td>Copy RMAN backup to Harddrive and Backup PC's</td>
+				<td>
+					<input type="checkbox" :disabled="checked.copy_rman" v-model="checked.copy_rman">
+      </td>
+			</tr>
+			<tr>
+				<td>Clear entry mode transaction</td>
+				<td>
+					<input type="checkbox" :disabled="checked.clear_entry_mode_transactions" v-model="checked.clear_entry_mode_transactions">
+      </td>
+			</tr>
+			<tr>
+				<td>Rename/Remove previous day logs</td>
+				<td>
+					<input type="checkbox" :disabled="checked.rename_previous_day_logs" v-model="checked.rename_previous_day_logs">
+      </td>
+			</tr>
+			<tr>
+				<td>/Backend/DANPHE_BACKEND/Finacle/FC/app/CDCI_LOGS</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>/Backend/DANPHE_BACKEND/Finacle/FC/app/CDCI_LOGS/FINADMIN</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>HLST2(Check Penal Interest Received Placeholder: NOACCOUNT)
+				</td>
+				<td>Run HRLBOOK from sol 01
+					<input type="checkbox" :disabled="checked.hrlbook" v-model="checked.hrlbook">
+      </td>
+			</tr>
+			<tr>
+				<td>Execute removelogs.sh</td>
+				<td>
+					<input type="checkbox" :disabled="checked.removelogs" v-model="checked.removelogs">
+      </td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>Batch Job Check</td>
+				<td>Run for Date</td>
+				<td>Count</td>
+				<td>Time</td>
+				</td>
+			</tr>
+			<tr>
+				<td>Daily</td>
+				<td><input type="date" @change="addTime('daily')" v-model="batch.daily.run_for_date"/></td>
+				<td><input v-model="batch.daily.count"/></td>
+				<td><span v-text="batch.daily.time"></span></td>
+			</tr>
+			<tr>
+				<td>Daily</td>
+				<td><input type="date" @change="addTime('daily_prscd')" v-model="batch.daily_prscd.run_for_date"/></td>
+				<td><input v-model="batch.daily_prscd.count"/></td>
+				<td><span v-text="batch.daily_prscd.time"></span></td>
+			</tr>
+			<tr>
+				<td>Monthly</td>
+				<td><input type="date" @change="addTime('monthly')" v-model="batch.monthly.run_for_date"/></td>
+				<td><input v-model="batch.monthly.count"/></td>
+				<td><span v-text="batch.monthly.time" ></span></td>
+			</tr>
+			<tr>
+				<td>Quarterly</td>
+				<td><input type="date" @change="addTime('quarterly')" v-model="batch.quarterly.run_for_date"/></td>
+				<td><input v-model="batch.quarterly.count"/></td>
+				<td><span v-text="batch.quarterly.time" ></span></td>
+			</tr>
+			<tr>
+				<td>Half Yearly</td>
+				<td><input type="date" @change="addTime('half_yearly')" v-model="batch.half_yearly.run_for_date"/></td>
+				<td><input v-model="batch.half_yearly.count"/></td>
+				<td><span v-text="batch.half_yearly.time"></span></td>
+			</tr>
+			<tr>
+				<td>Yearly</td>
+				<td><input type="date" @change="addTime('yearly')" v-model="batch.yearly.run_for_date"/></td>
+				<td><input v-model="batch.yearly.count"/></td>
+				<td><span v-text="batch.yearly.time"></span></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td><label><input v-model="eod_type" value="daily" type="radio"><p>Daily</p></label></td>
+				<td><label><input v-model="eod_type" value="monthly" type="radio"><p>Monthly</p></label></td>
+				<td><label><input v-model="eod_type" value="quarterly" type="radio"><p>Quarterly</p></label></td>
+				<td><label><input v-model="eod_type" value="half-yearly" type="radio"><p>Half Yearly</p></label> </td>
+				<td><label><input v-model="eod_type" value="yearly" type="radio"><p>Yearly</p></label></td>
+			</tr>
+			<tr v-for="criteria in filteredCriterias">
+				<td colspan="4" v-text="criteria.text">Criteria 1</td>
+				<td><input type="checkbox"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					Note last copied arc file before running HSCOD
+				</td>
+				<td>
+					ARC
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="page-break"></div>
+
+	<table>
+		<tbody>
+			<tr>
+				<td colspan="4">Check Space</td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>Available %</td>
+				<td>Used %</td>
+				<td>TimeStamp</td>
+			</tr>
+			<tr>
+				<td colspan="5">Application</td>
+			</tr>
+			<tr>
+				<td>/Backend</td>
+				<td><input @change="addTimeInSpace('application','backend')" number type="number" v-model="space.application.backend.available"/></td>
+				<td><input @change="addTimeInSpace('application','backend')" number type="number" v-model="space.application.backend.used"/></td>
+				<td v-text="space.application.backend.time"></td>
+			</tr>
+			<tr>
+				<td>/Finsetups</td>
+				<td><input @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.available"/></td>
+				<td><input @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.used"/></td>
+				<td v-text="space.application.finsetups.time"></td>
+			</tr>
+			<tr>
+				<td colspan="5">Database</td>
+			</tr>
+			<tr>
+				<td>/ArchiveLogs</td>
+				<td><input @change="addTimeInSpace('database','archivelogs')" number type="number" v-model="space.database.archivelogs.available"/></td>
+				<td><input @change="addTimeInSpace('database','archivelogs')" number type="number" v-model="space.database.archivelogs.used"/></td>
+				<td v-text="space.database.archivelogs.time"></td>
+			</tr>
+			<tr>
+				<td>/DbBackup</td>
+				<td><input @change="addTimeInSpace('database','dbbackup')" number type="number" v-model="space.database.dbbackup.available"/></td>
+				<td><input @change="addTimeInSpace('database','dbbackup')" number type="number" v-model="space.database.dbbackup.used"/></td>
+				<td v-text="space.database.dbbackup.time"></td>
+			</tr>
+			<tr>
+				<td>/Database</td>
+				<td><input @change="addTimeInSpace('database','database')" number type="number" v-model="space.database.database.available"/></td>
+				<td><input @change="addTimeInSpace('database','database')" number type="number" v-model="space.database.database.used"/></td>
+				<td v-text="space.database.database.time"></td>
+			</tr>
+			<tr>
+				<td colspan="5">WasServer</td>
+			</tr>
+			<tr>
+				<td>/Wasapp</td>
+				<td><input @change="addTimeInSpace('wasserver','wasapp')" number type="number" v-model="space.wasserver.wasapp.available"/></td>
+				<td><input @change="addTimeInSpace('wasserver','wasapp')" number type="number" v-model="space.wasserver.wasapp.used"/></td>
+				<td v-text="space.wasserver.wasapp.time"></td>
+			</tr>
+			<tr>
+				<td>/Wasadmin</td>
+				<td><input @change="addTimeInSpace('wasserver','wasadmin')" number type="number" v-model="space.wasserver.wasadmin.available"/></td>
+				<td><input @change="addTimeInSpace('wasserver','wasadmin')" number type="number" v-model="space.wasserver.wasadmin.used"/></td>
+				<td v-text="space.wasserver.wasadmin.time"></td>
+			</tr>
+			<tr>
+				<td colspan="5">C24</td>
+			</tr>
+			<tr>
+				<td>/C24Services</td>
+				<td><input @change="addTimeInSpace('c24','c24services')" number type="number" v-model="space.c24.c24services.available"/></td>
+				<td><input @change="addTimeInSpace('c24','c24services')" number type="number" v-model="space.c24.c24services.used"/></td>
+				<td v-text="space.c24.c24services.time"></td>
+			</tr>
+			<tr>
+				<td>/Database</td>
+				<td><input @change="addTimeInSpace('c24','database')" number type="number" v-model="space.c24.database.available"/></td>
+				<td><input @change="addTimeInSpace('c24','database')" number type="number" v-model="space.c24.database.used"/></td>
+				<td v-text="space.c24.database.time"></td>
+			</tr>
+			<tr>
+				<td>/CSIS_DbBackup</td>
+				<td><input @change="addTimeInSpace('c24','csis_dbbackup')" number type="number" v-model="space.c24.csis_dbbackup.available"/></td>
+				<td><input @change="addTimeInSpace('c24','csis_dbbackup')" number type="number" v-model="space.c24.csis_dbbackup.used"/></td>
+				<td v-text="space.c24.csis_dbbackup.time"></td>
+			</tr>
+			<tr>
+				<td>/ArchiveLogs</td>
+				<td><input @change="addTimeInSpace('c24','archivelogs')" number type="number" v-model="space.c24.archivelogs.available"/></td>
+				<td><input @change="addTimeInSpace('c24','archivelogs')" number type="number" v-model="space.c24.archivelogs.used"/></td>
+				<td v-text="space.c24.archivelogs.time"></td>
+			</tr>
+			<tr>
+				<td colspan="3">Check Space in 10.10.155.113</td>
+				<td><input type="checkbox"></td>
+			</tr>
+			<tr>
+				<td colspan="3">Run Gather table stats query / ALLOW_SWEEPS <input type="checkbox"></td>
+				<td>/DBbackup/statgatherlog</td>
+			</tr>
+
+		</tbody>
+		<tbody>
+			<tr>
+				<td>Restart</td>
+				<td>If needed</td>
+				<td>Restart</td>
+				<td>If needed</td>
+			</tr>
+			<tr>
+				<td>Restart</td>
+				<td>If needed</td>
+				<td>Restart</td>
+				<td>If needed</td>
+			</tr>
+			<tr>
+				<td>Restart</td>
+				<td>If needed</td>
+				<td>Restart</td>
+				<td>If needed</td>
+			</tr>
+			<tr>
+				<td>Restart</td>
+				<td>If needed</td>
+				<td colspan="2"><input type="checkbox"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="page-break"></div>
+
+	<table>
+		<tbody>
+			<tr>
+				<td colspan="4">
+					1st and 12th EMI schedules, 9th Staff EMI, Last of Nepali month(M/Q/H/Y)
+				</td>
+			</tr>
+			<tr>
+				<td>HSCOD</td>
+				<td>Parallel</td>
+				<td>Start Time</td>
+				<td>Helpful commands</td>
+			</tr>
+			<tr v-for="sol in sols">
+				<td v-text="sol.set_id"></td>
+				<td><input :disabled="sol.start_time && sol.disabled" @blur="sol.disabled = true" @change="start(sol)" type="text"/></td>
+				<td v-text="sol.start_time"></td>
+				<td v-text="sol.hint"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="page-break"></div>
+
+	<table>
+		<tr>
+			<td colspan="4">Query</td>
+		</tr>
+		<tr>
+			<td>HSOLCOP</td>
+			<td>PARELLED</td>
+			<td>START TIME</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="2">HSAC USERS</td>
+			<td>HSAC BATCH</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3">HRIST</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>HSCOLD</td>
+			<td>PARALLED</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td colspan="4">BANK LEVEL</td>
+			</tr>
+			<tr>
+				<td colspan="2">HBKOD</td>
+				<td>START TIME</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">HBKCOP</td>
+				<td>START TIME</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="3">HRIST</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2">HBKOLD</td>
+				<td>START TIME</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr>
+				<td>Copy EOD Log in 10.10.155.113</td>
+				<td><input type="checkbox"></td>
+			</tr>
+			<tr>
+				<td>Last Arc after EOD</td>
+				<td><input type="text"></td>
+			</tr>
+			<tr>
+				<td>SOD</td>
+				<td><input type="number"></td>
+			</tr>
+			<tr>
+				<td>GUP</td>
+				<td><input type="number"></td>
+			</tr>
+			<tr>
+				<td>Check Batch Job</td>
+				<td><input type="checkbox"></td>
+			</tr>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td colspan="4">To Start all services</td>
+			</tr>
+			<tr>
+				<td>Services</td>
+				<td>Command</td>
+				<td>Check</td>
+				<td>Time</td>
+			</tr>
+			<tr>
+				<td>was</td>
+				<td>Take backup of temp, wstemp, workspace</td>
+				<td><input :disabled="restarted.backup" type="checkbox" @change="restart('backup')"></td>
+				<td v-html="restarted.backup"></td>
+			</tr>
+			<tr>
+				<td>was</td>
+				<td>./startServer.sh server1</td>
+				<td><input :disabled="restarted.was" type="checkbox" @change="restart('was')"></td>
+				<td v-html="restarted.was"></td>
+			</tr>
+			<tr>
+				<td>cs</td>
+				<td>./start</td>
+				<td><input :disabled="restarted.cs" type="checkbox" @change="restart('cs')"></td>
+				<td v-html="restarted.cs"></td>
+			</tr>
+			<tr>
+				<td>core</td>
+				<td>./start-coresessionDANPHE</td>
+				<td><input :disabled="restarted.core" type="checkbox" @change="restart('core')"></td>
+				<td v-html="restarted.core"></td>
+			</tr>
+			<tr>
+				<td>fin</td>
+				<td>./start-finlistvalDANPHE</td>
+				<td><input :disabled="restarted.fin" type="checkbox" @change="restart('fin')"></td>
+				<td v-html="restarted.fin"></td>
+			</tr>
+			<tr>
+				<td>uni</td>
+				<td>./start-uniserDANPHE</td>
+				<td><input :disabled="restarted.uni" type="checkbox" @change="restart('uni')"></td>
+				<td v-html="restarted.uni"></td>
+			</tr>
+			<tr>
+				<td>cbc</td>
+				<td>./start-cbcDANPHE</td>
+				<td><input :disabled="restarted.cbc" type="checkbox" @change="restart('cbc')"></td>
+				<td v-html="restarted.cbc"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="page-break"></div>
+
+	<table>
+		<tbody>
+			<tr>
+				<td colspan="3">Take Rman Backup</td>
+			</tr>
+			<tr>
+				<td>PATH</td>
+				<td>COMMAND</td>
+				<td>I.P/USERS</td>
+			</tr>
+			<tr>
+				<td>/DBbackup/rman_scripts</td>
+				<td>nohup ./take_rman.sh &</td>
+				<td>10.2.5.11/rman</td>
+			</tr>
+			<tr>
+				<td>/DBbackup/rman_backup</td>
+				<td>du -sk DB_YYYYMMDD</td>
+				<td>to check RMAN Backup</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="3">CUPS SERVICES RESTART</td>
+			</tr>
+			<tr>
+				<td>Command</td>
+				<td>sudo service cups restart</td>
+				<td>10.2.5.10/print</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>C:/DATAMIS</td>
+				<td>cal.bat</td>
+				<td>10.10.157.72/administrator</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>Mis server cron job(Add # before second line using crontab -e command</td>
+				<td>10.2.4.21</td>
+			</tr>
+			<tr>
+				<td>Check mis cron jobs crontab -i and after disable arch sync open database in ./</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>Mis server cron job(Add # before second line using crontab -e command</td>
+				<td>10.2.4.21</td>
+			</tr>
+			<tr>
+				<td>Check mis cron jobs crontab -i and after disable arch sync open database in ./</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>Run BatchMigration.bat file 10.11.0.10 <br/>User: BYNTER-13\bi001(Run as Administrator)</td>
+				<td>MIS must be openreadonly mode (ARCH syn disabled mode)</td>
+			</tr>
+			<tr>
+				<td>Location of file:- C:\Users\bi001\Desktop\</td>
+				<td> Please use table 'Migrationstats' in NIC_JetDS to <br/> confirm the Start/End of
+					<br/> Migration. (C:\Users\bi001\Desktop)</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>EOD Users: </td>
+				<td></td>
+				<td>Verifier: </td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="page-break"></div>
+</div>
