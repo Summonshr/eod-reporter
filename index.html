@@ -75,13 +75,13 @@
 			<tr>
 				<td>Quarterly</td>
 				<td><input type="date" @change="addTime('quarterly')" v-model="batch.quarterly.run_for_date"/></td>
-				<td><input v-model="batch.quarterly.count"/></td>
+				<td><input type="number" v-model="batch.quarterly.count"/></td>
 				<td><span v-text="batch.quarterly.time" ></span></td>
 			</tr>
 			<tr>
 				<td>Half Yearly</td>
 				<td><input type="date" @change="addTime('half_yearly')" v-model="batch.half_yearly.run_for_date"/></td>
-				<td><input v-model="batch.half_yearly.count"/></td>
+				<td><input type="number" v-model="batch.half_yearly.count"/></td>
 				<td><span v-text="batch.half_yearly.time"></span></td>
 			</tr>
 			<tr>
