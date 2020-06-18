@@ -104,7 +104,7 @@
 			</tr>
 			<tr v-for="criteria in filteredCriterias">
 				<td colspan="4" v-text="criteria.text">Criteria 1</td>
-				<td><input type="checkbox"></td>
+				<td><input :disabled="criteria.checked" v-model="criteria.checked" type="checkbox"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -139,14 +139,14 @@
 			</tr>
 			<tr>
 				<td>/Backend</td>
-				<td><input @change="addTimeInSpace('application','backend')" number type="number" v-model="space.application.backend.available"/></td>
-				<td><input @change="addTimeInSpace('application','backend')" number type="number" v-model="space.application.backend.used"/></td>
+				<td><input :class="{error: space.application.backend.used + space.application.backend.available != 100  }" @change="addTimeInSpace('application','backend')" number type="number" v-model="space.application.backend.available"/></td>
+				<td><input :class="{error: space.application.backend.used + space.application.backend.available != 100  }" @change="addTimeInSpace('application','backend')" number type="number" v-model="space.application.backend.used"/></td>
 				<td v-text="space.application.backend.time"></td>
 			</tr>
 			<tr>
 				<td>/Finsetups</td>
-				<td><input @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.available"/></td>
-				<td><input @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.used"/></td>
+				<td><input :class="{error: space.application.finsetups.used + space.application.finsetups.available != 100 }" @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.available"/></td>
+				<td><input :class="{error: space.application.finsetups.used + space.application.finsetups.available != 100 }" @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.used"/></td>
 				<td v-text="space.application.finsetups.time"></td>
 			</tr>
 			<tr>
@@ -154,20 +154,20 @@
 			</tr>
 			<tr>
 				<td>/ArchiveLogs</td>
-				<td><input @change="addTimeInSpace('database','archivelogs')" number type="number" v-model="space.database.archivelogs.available"/></td>
-				<td><input @change="addTimeInSpace('database','archivelogs')" number type="number" v-model="space.database.archivelogs.used"/></td>
+				<td><input :class="{error: space.database.archivelogs.used + space.database.archivelogs.available != 100 }" @change="addTimeInSpace('database','archivelogs')" number type="number" v-model="space.database.archivelogs.available"/></td>
+				<td><input :class="{error: space.database.archivelogs.used + space.database.archivelogs.available != 100 }" @change="addTimeInSpace('database','archivelogs')" number type="number" v-model="space.database.archivelogs.used"/></td>
 				<td v-text="space.database.archivelogs.time"></td>
 			</tr>
 			<tr>
 				<td>/DbBackup</td>
-				<td><input @change="addTimeInSpace('database','dbbackup')" number type="number" v-model="space.database.dbbackup.available"/></td>
-				<td><input @change="addTimeInSpace('database','dbbackup')" number type="number" v-model="space.database.dbbackup.used"/></td>
+				<td><input :class="{error:   space.database.dbbackup.used + space.database.dbbackup.available != 100}" @change="addTimeInSpace('database','dbbackup')" number type="number" v-model="space.database.dbbackup.available"/></td>
+				<td><input :class="{error:   space.database.dbbackup.used + space.database.dbbackup.available != 100}" @change="addTimeInSpace('database','dbbackup')" number type="number" v-model="space.database.dbbackup.used"/></td>
 				<td v-text="space.database.dbbackup.time"></td>
 			</tr>
 			<tr>
 				<td>/Database</td>
-				<td><input @change="addTimeInSpace('database','database')" number type="number" v-model="space.database.database.available"/></td>
-				<td><input @change="addTimeInSpace('database','database')" number type="number" v-model="space.database.database.used"/></td>
+				<td><input :class="{error:   space.database.database.used + space.database.database.available != 100}" @change="addTimeInSpace('database','database')" number type="number" v-model="space.database.database.available"/></td>
+				<td><input :class="{error:   space.database.database.used + space.database.database.available != 100}" @change="addTimeInSpace('database','database')" number type="number" v-model="space.database.database.used"/></td>
 				<td v-text="space.database.database.time"></td>
 			</tr>
 			<tr>
@@ -175,14 +175,14 @@
 			</tr>
 			<tr>
 				<td>/Wasapp</td>
-				<td><input @change="addTimeInSpace('wasserver','wasapp')" number type="number" v-model="space.wasserver.wasapp.available"/></td>
-				<td><input @change="addTimeInSpace('wasserver','wasapp')" number type="number" v-model="space.wasserver.wasapp.used"/></td>
+				<td><input :class="{error:  space.wasserver.wasapp.used + space.wasserver.wasapp.available != 100 }" @change="addTimeInSpace('wasserver','wasapp')" number type="number" v-model="space.wasserver.wasapp.available"/></td>
+				<td><input :class="{error:  space.wasserver.wasapp.used + space.wasserver.wasapp.available != 100 }" @change="addTimeInSpace('wasserver','wasapp')" number type="number" v-model="space.wasserver.wasapp.used"/></td>
 				<td v-text="space.wasserver.wasapp.time"></td>
 			</tr>
 			<tr>
 				<td>/Wasadmin</td>
-				<td><input @change="addTimeInSpace('wasserver','wasadmin')" number type="number" v-model="space.wasserver.wasadmin.available"/></td>
-				<td><input @change="addTimeInSpace('wasserver','wasadmin')" number type="number" v-model="space.wasserver.wasadmin.used"/></td>
+				<td><input :class="{error:  space.wasserver.wasadmin.used + space.wasserver.wasadmin.available != 100 }" @change="addTimeInSpace('wasserver','wasadmin')" number type="number" v-model="space.wasserver.wasadmin.available"/></td>
+				<td><input :class="{error:  space.wasserver.wasadmin.used + space.wasserver.wasadmin.available != 100 }" @change="addTimeInSpace('wasserver','wasadmin')" number type="number" v-model="space.wasserver.wasadmin.used"/></td>
 				<td v-text="space.wasserver.wasadmin.time"></td>
 			</tr>
 			<tr>
@@ -190,26 +190,26 @@
 			</tr>
 			<tr>
 				<td>/C24Services</td>
-				<td><input @change="addTimeInSpace('c24','c24services')" number type="number" v-model="space.c24.c24services.available"/></td>
-				<td><input @change="addTimeInSpace('c24','c24services')" number type="number" v-model="space.c24.c24services.used"/></td>
+				<td><input :class="{error: space.c24.c24services.used + space.c24.c24services.available != 100  }" @change="addTimeInSpace('c24','c24services')" number type="number" v-model="space.c24.c24services.available"/></td>
+				<td><input :class="{error: space.c24.c24services.used + space.c24.c24services.available != 100  }" @change="addTimeInSpace('c24','c24services')" number type="number" v-model="space.c24.c24services.used"/></td>
 				<td v-text="space.c24.c24services.time"></td>
 			</tr>
 			<tr>
 				<td>/Database</td>
-				<td><input @change="addTimeInSpace('c24','database')" number type="number" v-model="space.c24.database.available"/></td>
-				<td><input @change="addTimeInSpace('c24','database')" number type="number" v-model="space.c24.database.used"/></td>
+				<td><input :class="{error: space.c24.database.available.used + space.c24.database.available.available != 100 }" @change="addTimeInSpace('c24','database')" number type="number" v-model="space.c24.database.available"/></td>
+				<td><input :class="{error:   space.c24.database.used.used + space.c24.database.used.available != 100}" @change="addTimeInSpace('c24','database')" number type="number" v-model="space.c24.database.used"/></td>
 				<td v-text="space.c24.database.time"></td>
 			</tr>
 			<tr>
 				<td>/CSIS_DbBackup</td>
-				<td><input @change="addTimeInSpace('c24','csis_dbbackup')" number type="number" v-model="space.c24.csis_dbbackup.available"/></td>
-				<td><input @change="addTimeInSpace('c24','csis_dbbackup')" number type="number" v-model="space.c24.csis_dbbackup.used"/></td>
+				<td><input :class="{error:   space.c24.csis_dbbackup.used + space.c24.csis_dbbackup.available != 100}" @change="addTimeInSpace('c24','csis_dbbackup')" number type="number" v-model="space.c24.csis_dbbackup.available"/></td>
+				<td><input :class="{error:   space.c24.csis_dbbackup.used + space.c24.csis_dbbackup.available != 100}" @change="addTimeInSpace('c24','csis_dbbackup')" number type="number" v-model="space.c24.csis_dbbackup.used"/></td>
 				<td v-text="space.c24.csis_dbbackup.time"></td>
 			</tr>
 			<tr>
 				<td>/ArchiveLogs</td>
-				<td><input @change="addTimeInSpace('c24','archivelogs')" number type="number" v-model="space.c24.archivelogs.available"/></td>
-				<td><input @change="addTimeInSpace('c24','archivelogs')" number type="number" v-model="space.c24.archivelogs.used"/></td>
+				<td><input :class="{error: space.c24.archivelogs.used + space.c24.archivelogs.available != 100  }" @change="addTimeInSpace('c24','archivelogs')" number type="number" v-model="space.c24.archivelogs.available"/></td>
+				<td><input :class="{error: space.c24.archivelogs.used + space.c24.archivelogs.available != 100  }" @change="addTimeInSpace('c24','archivelogs')" number type="number" v-model="space.c24.archivelogs.used"/></td>
 				<td v-text="space.c24.archivelogs.time"></td>
 			</tr>
 			<tr>
