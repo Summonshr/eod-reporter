@@ -30,6 +30,7 @@ export default {
     } else {
       this.restarted[b] = new Date().toLocaleTimeString();
     }
+
     this.restarted = { ...this.restarted };
   }
 };
