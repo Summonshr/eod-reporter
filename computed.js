@@ -1,6 +1,7 @@
 export default {
   filteredCriterias() {
     return this.criterias.filter(e => {
+
       if (this.eod_type == "yearly") {
         return true;
       }
@@ -27,6 +28,8 @@ export default {
           e.when != "monthly"
         );
       }
+
+      return false;
     });
   }
 };
