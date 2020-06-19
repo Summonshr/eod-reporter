@@ -139,8 +139,8 @@
 			</tr>
 			<tr>
 				<td>/Finsetups</td>
-				<td><input :class="{error: space.application.finsetups.used + space.application.finsetups.available != 100 }" @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.available"/></td>
-				<td><input :class="{error: space.application.finsetups.used + space.application.finsetups.available != 100 }" @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.used"/></td>
+				<td><input :class="{error: space.application.finsetups.used && space.application.finsetups.available && (space.application.finsetups.used + space.application.finsetups.available != 100) }" @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.available"/></td>
+				<td><input :class="{error: space.application.finsetups.used && space.application.finsetups.available && (space.application.finsetups.used + space.application.finsetups.available != 100) }" @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.used"/></td>
 				<td v-text="space.application.finsetups.time"></td>
 			</tr>
 			<tr>
