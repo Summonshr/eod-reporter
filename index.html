@@ -1,5 +1,5 @@
 <div id="app">
-	<!-- <table>
+ <table>
 		<tbody>
 			<tr>
 				<td>EOD for Day: </td>
@@ -56,37 +56,37 @@
 			</tr>
 			<tr>
 				<td>Daily</td>
-				<td><input type="date" @change="addTime('daily')" v-model="batch.daily.run_for_date"/></td>
+				<td><input type="date" @change="addTimeInThis(batch.daily)" v-model="batch.daily.run_for_date"/></td>
 				<td><input type="number" v-model="batch.daily.count"/></td>
 				<td><span v-text="batch.daily.time"></span></td>
 			</tr>
 			<tr>
 				<td>Daily</td>
-				<td><input type="date" @change="addTime('daily_prscd')" v-model="batch.daily_prscd.run_for_date"/></td>
+				<td><input type="date" @change="addTimeInThis(batch.daily_prscd)" v-model="batch.daily_prscd.run_for_date"/></td>
 				<td><input type="number" v-model="batch.daily_prscd.count"/></td>
 				<td><span v-text="batch.daily_prscd.time"></span></td>
 			</tr>
 			<tr>
 				<td>Monthly</td>
-				<td><input type="date" @change="addTime('monthly')" v-model="batch.monthly.run_for_date"/></td>
+				<td><input type="date" @change="addTimeInThis(batch.monthly)" v-model="batch.monthly.run_for_date"/></td>
 				<td><input type="number" v-model="batch.monthly.count"/></td>
 				<td><span v-text="batch.monthly.time" ></span></td>
 			</tr>
 			<tr>
 				<td>Quarterly</td>
-				<td><input type="date" @change="addTime('quarterly')" v-model="batch.quarterly.run_for_date"/></td>
+				<td><input type="date" @change="addTimeInThis(batch.quarterly)" v-model="batch.quarterly.run_for_date"/></td>
 				<td><input type="number" v-model="batch.quarterly.count"/></td>
 				<td><span v-text="batch.quarterly.time" ></span></td>
 			</tr>
 			<tr>
 				<td>Half Yearly</td>
-				<td><input type="date" @change="addTime('half_yearly')" v-model="batch.half_yearly.run_for_date"/></td>
+				<td><input type="date" @change="addTimeInThis(batch.half_yearly)" v-model="batch.half_yearly.run_for_date"/></td>
 				<td><input type="number" v-model="batch.half_yearly.count"/></td>
 				<td><span v-text="batch.half_yearly.time"></span></td>
 			</tr>
 			<tr>
 				<td>Yearly</td>
-				<td><input type="date" @change="addTime('yearly')" v-model="batch.yearly.run_for_date"/></td>
+				<td><input type="date" @change="addTimeInThis(batch.yearly)" v-model="batch.yearly.run_for_date"/></td>
 				<td><input type="number" v-model="batch.yearly.count"/></td>
 				<td><span v-text="batch.yearly.time"></span></td>
 			</tr>
@@ -273,47 +273,14 @@
 	<div class="page-break"></div>
 
 	<table>
-		<tr>
-			<td colspan="4">Query</td>
-		</tr>
-		<tr>
-			<td>HSOLCOP</td>
-			<td>PARELLED</td>
-			<td>START TIME</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td colspan="2">HSAC USERS</td>
-			<td>HSAC BATCH</td>
-		</tr>
-		<tr>
-			<td colspan="3">HRIST</td>
-		</tr>
-		<tr>
-			<td>HSCOLD</td>
-			<td>PARALLED</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table> -->
-
-	<table>
 		<tbody>
 			<tr>
 				<td colspan="4">After HSCOD</td>
 			</tr>
       <tr v-for="item in bankLevels">
-        <td v-text="item.name"></td>
-        <td><input type="checkbox" v-model="item.checked"></td>
-        <td><input type="item.start_time"></td>
+        <td style="width: 33%" v-text="item.name"></td>
+        <td style="width: 33%"><input @change="addTimeInThis(item)" :disabled="item.time.length > 0" type="checkbox" :checked="item.time"></td>
+        <td style="width: 33%"><span v-text="item.time"></span></td>
       </tr>
 		</tbody>
 	</table>

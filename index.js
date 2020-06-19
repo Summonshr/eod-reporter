@@ -39,6 +39,11 @@ new Vue({
     }
   },
   methods: {
+    addTimeInThis(a){
+      if(!a.time) {
+        a.time = new Date().toLocaleTimeString();
+      }
+    },
     addTimeInSpace(a, b){
       if(!this.space[a][b].time && this.space[a][b].used && this.space[a][b].available)
       this.space[a][b].time = new Date().toLocaleTimeString();
@@ -67,24 +72,31 @@ new Vue({
   data: {
     bankLevels: [
       {
+        time: '',
         name: 'HSOLCOP'
       },
       {
+        time: '',
         name: 'HRIST'
       },
       {
+        time: '',
         name: 'HSAC'
       },
       {
+        time: '',
         name: 'HSCOLD'
       },
       {
+        time: '',
         name: 'HBKOD'
       },
       {
+        time: '',
         name: 'HBKCOP'
       },
       {
+        time: '',
         name: 'HBKOLD'
       },
     ],
