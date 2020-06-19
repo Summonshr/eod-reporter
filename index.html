@@ -1,5 +1,5 @@
 <div id="app">
-	<table>
+	<!-- <table>
 		<tbody>
 			<tr>
 				<td>EOD for Day: </td>
@@ -280,10 +280,8 @@
 			<td>HSOLCOP</td>
 			<td>PARELLED</td>
 			<td>START TIME</td>
-			<td></td>
 		</tr>
 		<tr>
-			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -291,68 +289,32 @@
 		<tr>
 			<td colspan="2">HSAC USERS</td>
 			<td>HSAC BATCH</td>
-			<td></td>
 		</tr>
 		<tr>
 			<td colspan="3">HRIST</td>
-			<td></td>
 		</tr>
 		<tr>
 			<td>HSCOLD</td>
 			<td>PARALLED</td>
 			<td></td>
-			<td></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td></td>
 			<td></td>
-			<td></td>
 		</tr>
-	</table>
+	</table> -->
 
 	<table>
 		<tbody>
 			<tr>
-				<td colspan="4">BANK LEVEL</td>
+				<td colspan="4">After HSCOD</td>
 			</tr>
-			<tr>
-				<td colspan="2">HBKOD</td>
-				<td>START TIME</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan="2">HBKCOP</td>
-				<td>START TIME</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan="3">HRIST</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan="2">HBKOLD</td>
-				<td>START TIME</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
+      <tr v-for="item in bankLevels">
+        <td v-text="item.name"></td>
+        <td><input type="checkbox" v-model="item.checked"></td>
+        <td><input type="item.start_time"></td>
+      </tr>
 		</tbody>
 	</table>
 	<table>

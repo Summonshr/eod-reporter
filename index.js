@@ -65,6 +65,29 @@ new Vue({
     }
   },
   data: {
+    bankLevels: [
+      {
+        name: 'HSOLCOP'
+      },
+      {
+        name: 'HRIST'
+      },
+      {
+        name: 'HSAC'
+      },
+      {
+        name: 'HSCOLD'
+      },
+      {
+        name: 'HBKOD'
+      },
+      {
+        name: 'HBKCOP'
+      },
+      {
+        name: 'HBKOLD'
+      },
+    ],
     checked: {
       copy_rman: false
     },
