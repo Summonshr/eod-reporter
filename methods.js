@@ -21,6 +21,9 @@ export default {
       if (s.set_id == sol.set_id && s.start_time == null) {
         s.start_time = new Date().toLocaleTimeString();
       }
+      setTimeout(()=>{
+        s.disabled = true
+      }, 10000)
       return s;
     });
   },

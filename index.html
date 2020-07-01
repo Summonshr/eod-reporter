@@ -3,7 +3,7 @@
 		<tbody>
 			<tr>
 				<td>EOD for Day: </td>
-				<td><input type="date" placeholder="Date: dd/mm/yyyy"/></td>
+				<td><input type="date" v-model="eod_date" placeholder="Date: dd/mm/yyyy"/></td>
 			</tr>
 			<tr>
 				<td>Copy RMAN backup to Harddrive and Backup PC's</td>
@@ -258,7 +258,7 @@
 			</tr>
 			<tr v-for="sol in sols">
 				<td v-text="sol.set_id"></td>
-				<td><input :disabled="sol.start_time && sol.disabled" @blur="sol.disabled = true" @change="start(sol)" type="text"/></td>
+				<td><input v-model="sol.parallel" @change="start(sol)" type="text"/></td>
 				<td v-text="sol.start_time"></td>
 				<td v-text="sol.hint"></td>
 			</tr>
@@ -283,23 +283,23 @@
 		<tbody>
 			<tr>
 				<td>Copy EOD Log in 10.10.155.113</td>
-				<td><input type="checkbox"></td>
+				<td><input v-model="after_eod.copy_log" type="checkbox"></td>
 			</tr>
 			<tr>
 				<td>Last Arc after EOD</td>
-				<td><input type="text"></td>
+				<td><input v-model="after_eod.last_arc_after_eod" type="text"></td>
 			</tr>
 			<tr>
-				<td>SOD</td>
-				<td><input type="number"></td>
+				<td>SOD Count</td>
+				<td><input v-model="after_eod.sod_count" type="number"></td>
 			</tr>
 			<tr>
-				<td>GUP</td>
-				<td><input type="number"></td>
+				<td>GUP Count</td>
+				<td><input v-model="after_eod.gup_log" type="number"></td>
 			</tr>
 			<tr>
 				<td>Check Batch Job</td>
-				<td><input type="checkbox"></td>
+				<td><input v-model="after_eod.check_batch_job" type="checkbox"></td>
 			</tr>
 			</tr>
 		</tbody>

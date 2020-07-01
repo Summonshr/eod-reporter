@@ -1,4 +1,4 @@
-export default {
+export default JSON.parse(localStorage.getItem('data')) || {
     bankLevels: [
       {
         time: '',
@@ -98,6 +98,12 @@ export default {
       }
     },
     restarted: {},
+    after_eod: {
+      last_arc_after_eod: '',
+      sod: '',
+      gup: '',
+      check_batch_job: ''
+    },
     batch: {
       daily: {
         count: "",
@@ -131,6 +137,7 @@ export default {
       }
     },
     eod_type: "",
+    eod_date: "",
     criterias: [
       { when: "daily", text: "Criteria 1" },
       { when: "daily", text: "Criteria 2" },
@@ -140,23 +147,23 @@ export default {
       { when: "yearly", text: "Criteria 6" }
     ],
     sols: [
-      { disabled: false, set_id: "SET 00-20", hint: "find ./ -name fatal*" },
-      { disabled: false, set_id: "SET 21-30", hint: "find ./ -name core*" },
-      { disabled: false, set_id: "SET 30-54", hint: "ps -ef |grep fin*" },
-      { disabled: false, set_id: "SET 55-64", hint: "ls | wc -l" },
-      { disabled: false, set_id: "SET 81-98" },
-      { disabled: false, set_id: "SET A0-B9" },
-      { disabled: false, set_id: "SET C0-D9" },
-      { disabled: false, set_id: "SET E1-F9" },
-      { disabled: false, set_id: "SET G0-H9" },
-      { disabled: false, set_id: "SET I0-J9" },
-      { disabled: false, set_id: "SET K0-L0" },
-      { disabled: false, set_id: "SET M0-M9" },
-      { disabled: false, set_id: "SET O0-P9" },
-      { disabled: false, set_id: "SET Q0-R9" },
-      { disabled: false, set_id: "SET S0-T9" },
-      { disabled: false, set_id: "SET U0-V9" },
-      { disabled: false, set_id: "SET W0-X9" },
-      { disabled: false, set_id: "SET Y0-Z9" }
+      { disabled: false, parallel: '', set_id: "SET 00-20", hint: "find ./ -name fatal*" },
+      { disabled: false, parallel: '', set_id: "SET 21-30", hint: "find ./ -name core*" },
+      { disabled: false, parallel: '', set_id: "SET 30-54", hint: "ps -ef |grep fin*" },
+      { disabled: false, parallel: '', set_id: "SET 55-64", hint: "ls | wc -l" },
+      { disabled: false, parallel: '', set_id: "SET 81-98" },
+      { disabled: false, parallel: '', set_id: "SET A0-B9" },
+      { disabled: false, parallel: '', set_id: "SET C0-D9" },
+      { disabled: false, parallel: '', set_id: "SET E1-F9" },
+      { disabled: false, parallel: '', set_id: "SET G0-H9" },
+      { disabled: false, parallel: '', set_id: "SET I0-J9" },
+      { disabled: false, parallel: '', set_id: "SET K0-L0" },
+      { disabled: false, parallel: '', set_id: "SET M0-M9" },
+      { disabled: false, parallel: '', set_id: "SET O0-P9" },
+      { disabled: false, parallel: '', set_id: "SET Q0-R9" },
+      { disabled: false, parallel: '', set_id: "SET S0-T9" },
+      { disabled: false, parallel: '', set_id: "SET U0-V9" },
+      { disabled: false, parallel: '', set_id: "SET W0-X9" },
+      { disabled: false, parallel: '', set_id: "SET Y0-Z9" }
     ]
   }
