@@ -1,6 +1,8 @@
 export default {
   addTimeInThis(a) {
-    if (!a.time) {
+    if(a.time) {
+      a.time = ''
+    } else {
       a.time = new Date().toLocaleTimeString();
     }
   },

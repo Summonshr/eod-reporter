@@ -58,6 +58,10 @@ button:hover {
     border-radius: 3px;
     background: transparent;
   }
+  textarea {
+    display:block;
+    overflow: auto;
+  }
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -70,4 +74,16 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.w-full {
+  width: 95%;
+}
+
+.h-30 {
+  height: auto;
+}
+
+.p-10 {
+  padding: 20px;
 }

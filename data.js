@@ -29,80 +29,97 @@ export default JSON.parse(localStorage.getItem('data')) || {
         name: 'HBKOLD'
       },
     ],
+    gist: 'No issues found.',
     checked: {
       copy_rman: false
+    },
+    restart_before_eod: {
+      finlistval: {time: ''},
+      core: {time: ''},
+      cs: {time: ''},
+      cbc: {time: ''},
+      uniser: {time: ''},
+      was: {time: ''},
+      finrpt: {time: ''},
+      cups: {time: ''},
+    },
+    restart_after_eod: {
+      backup: {time: ''},
+      core: {time: ''},
+      cs: {time: ''},
+      cbc: {time: ''},
+      uniser: {time: ''},
+      was: {time: ''},
+      fin: {time: ''},
+      uni: {time: ''},
     },
     space: {
       application: {
         backend: {
           available: "",
-          used: "",
           time: ""
         },
         finsetups: {
           available: "",
-          used: "",
           time: ""
         }
       },
       database: {
         archivelogs: {
           available: "",
-          used: "",
           time: ""
         },
         dbbackup: {
           available: "",
-          used: "",
           time: ""
         },
         database: {
           available: "",
-          used: "",
           time: ""
         }
       },
       wasserver: {
         wasapp: {
           available: "",
-          used: "",
           time: ""
         },
         wasadmin: {
           available: "",
-          used: "",
           time: ""
         }
       },
       c24: {
         c24services: {
           available: "",
-          used: "",
           time: ""
         },
         database: {
           available: "",
-          used: "",
           time: ""
         },
         csis_dbbackup: {
           available: "",
-          used: "",
           time: ""
         },
         archivelogs: {
           available: "",
-          used: "",
           time: ""
         }
+      },
+      one_hundred_thirteen: {time: ''}
+    },
+    run: {
+      stat_gather:{
+        time: ''
       }
     },
     restarted: {},
     after_eod: {
-      last_arc_after_eod: '',
-      sod: '',
-      gup: '',
-      check_batch_job: ''
+      copy_log: {time: ''},
+      last_arc_after_eod: {time: ''},
+      sod_count: {time: ''},
+      gup_count: {time: ''},
+      check_batch_job: {time: ''}
     },
     batch: {
       daily: {

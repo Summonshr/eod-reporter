@@ -1,5 +1,5 @@
 <div id="app">
- <table>
+	<table>
 		<tbody>
 			<tr>
 				<td>EOD for Day: </td>
@@ -7,18 +7,18 @@
 			</tr>
 			<tr>
 				<td>Copy RMAN backup to Harddrive and Backup PC's</td>
-				<td><input type="checkbox" :disabled="checked.copy_rman" v-model="checked.copy_rman"/></td>
+				<td><input type="checkbox" v-model="checked.copy_rman"/></td>
 			</tr>
 			<tr>
 				<td>Clear entry mode transaction</td>
 				<td>
-					<input type="checkbox" :disabled="checked.clear_entry_mode_transactions" v-model="checked.clear_entry_mode_transactions">
+					<input type="checkbox" v-model="checked.clear_entry_mode_transactions">
         </td>
 			</tr>
 			<tr>
 				<td>Rename/Remove previous day logs</td>
 				<td>
-					<input type="checkbox" :disabled="checked.rename_previous_day_logs" v-model="checked.rename_previous_day_logs">
+					<input type="checkbox" v-model="checked.rename_previous_day_logs">
         </td>
 			</tr>
 			<tr>
@@ -31,11 +31,11 @@
 			</tr>
 			<tr>
 				<td>HLST2(Check Penal Interest Received Placeholder: NOACCOUNT)</td>
-				<td>Run HRLBOOK from sol 01 <input type="checkbox" :disabled="checked.hrlbook" v-model="checked.hrlbook"/></td>
+				<td>Run HRLBOOK from sol 01 <input type="checkbox" v-model="checked.hrlbook"/></td>
 			</tr>
 			<tr>
 				<td>Execute removelogs.sh</td>
-				<td><input type="checkbox" :disabled="checked.removelogs" v-model="checked.removelogs"/></td>
+				<td><input type="checkbox"  v-model="checked.removelogs"/></td>
 			</tr>
 		</tbody>
 	</table>
@@ -98,7 +98,7 @@
 			</tr>
 			<tr v-for="criteria in filteredCriterias">
 				<td colspan="4" v-text="criteria.text">Criteria 1</td>
-				<td><input :disabled="criteria.checked" v-model="criteria.checked" type="checkbox"></td>
+				<td><input v-model="criteria.checked" type="checkbox"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -133,14 +133,14 @@
 			</tr>
 			<tr>
 				<td>/Backend</td>
-				<td><input :class="{error: space.application.backend.used + space.application.backend.available != 100  }" @change="addTimeInSpace('application','backend')" number type="number" v-model="space.application.backend.available"/></td>
-				<td><input :class="{error: space.application.backend.used + space.application.backend.available != 100  }" @change="addTimeInSpace('application','backend')" number type="number" v-model="space.application.backend.used"/></td>
+				<td><input min="1" max="99" @change="addTimeInThis(space.application.backend)" type="number" v-model="space.application.backend.available"/></td>
+				<td><input type="number" disabled :value="100 - space.application.backend.available"/></td>
 				<td v-text="space.application.backend.time"></td>
 			</tr>
 			<tr>
 				<td>/Finsetups</td>
-				<td><input :class="{error: space.application.finsetups.used && space.application.finsetups.available && (space.application.finsetups.used + space.application.finsetups.available != 100) }" @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.available"/></td>
-				<td><input :class="{error: space.application.finsetups.used && space.application.finsetups.available && (space.application.finsetups.used + space.application.finsetups.available != 100) }" @change="addTimeInSpace('application','finsetups')" number type="number" v-model="space.application.finsetups.used"/></td>
+				<td><input min="1" max="99" @change="addTimeInThis(space.application.finsetups)" type="number" v-model="space.application.finsetups.available"/></td>
+				<td><input type="number" disabled :value="100 - space.application.finsetups.available"/></td>
 				<td v-text="space.application.finsetups.time"></td>
 			</tr>
 			<tr>
@@ -148,20 +148,20 @@
 			</tr>
 			<tr>
 				<td>/ArchiveLogs</td>
-				<td><input :class="{error: space.database.archivelogs.used + space.database.archivelogs.available != 100 }" @change="addTimeInSpace('database','archivelogs')" number type="number" v-model="space.database.archivelogs.available"/></td>
-				<td><input :class="{error: space.database.archivelogs.used + space.database.archivelogs.available != 100 }" @change="addTimeInSpace('database','archivelogs')" number type="number" v-model="space.database.archivelogs.used"/></td>
+				<td><input min="1" max="99" @change="addTimeInThis(space.database.archivelogs)" type="number" v-model="space.database.archivelogs.available"/></td>
+				<td><input type="number" disabled :value="100 - space.database.archivelogs.available"/></td>
 				<td v-text="space.database.archivelogs.time"></td>
 			</tr>
 			<tr>
 				<td>/DbBackup</td>
-				<td><input :class="{error:   space.database.dbbackup.used + space.database.dbbackup.available != 100}" @change="addTimeInSpace('database','dbbackup')" number type="number" v-model="space.database.dbbackup.available"/></td>
-				<td><input :class="{error:   space.database.dbbackup.used + space.database.dbbackup.available != 100}" @change="addTimeInSpace('database','dbbackup')" number type="number" v-model="space.database.dbbackup.used"/></td>
+				<td><input min="1" max="99" @change="addTimeInThis(space.database.dbbackup)" type="number" v-model="space.database.dbbackup.available"/></td>
+				<td><input min="1" max="99" disabled :value="100 - space.database.dbbackup.available"/></td>
 				<td v-text="space.database.dbbackup.time"></td>
 			</tr>
 			<tr>
 				<td>/Database</td>
-				<td><input :class="{error:   space.database.database.used + space.database.database.available != 100}" @change="addTimeInSpace('database','database')" number type="number" v-model="space.database.database.available"/></td>
-				<td><input :class="{error:   space.database.database.used + space.database.database.available != 100}" @change="addTimeInSpace('database','database')" number type="number" v-model="space.database.database.used"/></td>
+				<td><input min="1" max="99" @change="addTimeInThis(space.database.database)" type="number" v-model="space.database.database.available"/></td>
+				<td><input type="number" :value="100-space.database.database.available"/></td>
 				<td v-text="space.database.database.time"></td>
 			</tr>
 			<tr>
@@ -169,14 +169,14 @@
 			</tr>
 			<tr>
 				<td>/Wasapp</td>
-				<td><input :class="{error:  space.wasserver.wasapp.used + space.wasserver.wasapp.available != 100 }" @change="addTimeInSpace('wasserver','wasapp')" number type="number" v-model="space.wasserver.wasapp.available"/></td>
-				<td><input :class="{error:  space.wasserver.wasapp.used + space.wasserver.wasapp.available != 100 }" @change="addTimeInSpace('wasserver','wasapp')" number type="number" v-model="space.wasserver.wasapp.used"/></td>
+				<td><input @change="addTimeInThis(space.wasserver.wasapp)" type="number" v-model="space.wasserver.wasapp.available"/></td>
+				<td><input type="number" disabled :value="100 - space.wasserver.wasapp.available"/></td>
 				<td v-text="space.wasserver.wasapp.time"></td>
 			</tr>
 			<tr>
 				<td>/Wasadmin</td>
-				<td><input :class="{error:  space.wasserver.wasadmin.used + space.wasserver.wasadmin.available != 100 }" @change="addTimeInSpace('wasserver','wasadmin')" number type="number" v-model="space.wasserver.wasadmin.available"/></td>
-				<td><input :class="{error:  space.wasserver.wasadmin.used + space.wasserver.wasadmin.available != 100 }" @change="addTimeInSpace('wasserver','wasadmin')" number type="number" v-model="space.wasserver.wasadmin.used"/></td>
+				<td><input @change="addTimeInThis(space.wasserver.wasadmin)" type="number" v-model="space.wasserver.wasadmin.available"/></td>
+				<td><input type="number" :value="space.wasserver.wasadmin.available"/></td>
 				<td v-text="space.wasserver.wasadmin.time"></td>
 			</tr>
 			<tr>
@@ -184,60 +184,62 @@
 			</tr>
 			<tr>
 				<td>/C24Services</td>
-				<td><input :class="{error: space.c24.c24services.used + space.c24.c24services.available != 100  }" @change="addTimeInSpace('c24','c24services')" number type="number" v-model="space.c24.c24services.available"/></td>
-				<td><input :class="{error: space.c24.c24services.used + space.c24.c24services.available != 100  }" @change="addTimeInSpace('c24','c24services')" number type="number" v-model="space.c24.c24services.used"/></td>
+				<td><input max="99" min="1" @change="addTimeInThis(space.c24.c24services)" type="number" v-model="space.c24.c24services.available"/></td>
+				<td><input type="number" :value="100-space.c24.c24services.available"/></td>
 				<td v-text="space.c24.c24services.time"></td>
 			</tr>
 			<tr>
 				<td>/Database</td>
-				<td><input :class="{error: space.c24.database.available.used + space.c24.database.available.available != 100 }" @change="addTimeInSpace('c24','database')" number type="number" v-model="space.c24.database.available"/></td>
-				<td><input :class="{error:   space.c24.database.used.used + space.c24.database.used.available != 100}" @change="addTimeInSpace('c24','database')" number type="number" v-model="space.c24.database.used"/></td>
+				<td><input max="99" min="1" @change="addTimeInThis(space.c24.database)" type="number" v-model="space.c24.database.available"/></td>
+				<td><input type="number" :value="100-space.c24.database.available"/></td>
 				<td v-text="space.c24.database.time"></td>
 			</tr>
 			<tr>
 				<td>/CSIS_DbBackup</td>
-				<td><input :class="{error:   space.c24.csis_dbbackup.used + space.c24.csis_dbbackup.available != 100}" @change="addTimeInSpace('c24','csis_dbbackup')" number type="number" v-model="space.c24.csis_dbbackup.available"/></td>
-				<td><input :class="{error:   space.c24.csis_dbbackup.used + space.c24.csis_dbbackup.available != 100}" @change="addTimeInSpace('c24','csis_dbbackup')" number type="number" v-model="space.c24.csis_dbbackup.used"/></td>
+				<td><input max="99" min="1" @change="addTimeInThis(space.c24.csis_dbbackup)" type="number" v-model="space.c24.csis_dbbackup.available"/></td>
+				<td><input type="number" :value="100-space.c24.csis_dbbackup.available"/></td>
 				<td v-text="space.c24.csis_dbbackup.time"></td>
 			</tr>
 			<tr>
 				<td>/ArchiveLogs</td>
-				<td><input :class="{error: space.c24.archivelogs.used + space.c24.archivelogs.available != 100  }" @change="addTimeInSpace('c24','archivelogs')" number type="number" v-model="space.c24.archivelogs.available"/></td>
-				<td><input :class="{error: space.c24.archivelogs.used + space.c24.archivelogs.available != 100  }" @change="addTimeInSpace('c24','archivelogs')" number type="number" v-model="space.c24.archivelogs.used"/></td>
+				<td><input max="99" min="1" @change="addTimeInThis(space.c24.archivelogs)" type="number" v-model="space.c24.archivelogs.available"/></td>
+				<td><input type="number" disabled :value="100 - space.c24.archivelogs.available"/></td>
 				<td v-text="space.c24.archivelogs.time"></td>
 			</tr>
 			<tr>
 				<td colspan="3">Check Space in 10.10.155.113</td>
-				<td><input type="checkbox"></td>
+				<td><input @click="addTimeInThis(space.one_hundred_thirteen)" type="checkbox"></td>
 			</tr>
 			<tr>
-				<td colspan="3">Run Gather table stats query / ALLOW_SWEEPS <input type="checkbox"></td>
+				<td colspan="3">Run Gather table stats query / ALLOW_SWEEPS
+					<input @click="addTimeInThis(run.stat_gather)" type="checkbox"></td>
 				<td>/DBbackup/statgatherlog</td>
 			</tr>
 		</tbody>
 		<tbody>
 			<tr>
-				<td>Restart</td>
-				<td>If needed</td>
-				<td>Restart</td>
-				<td>If needed</td>
+				<td>Restart finlistval</td>
+				<td><input type="checkbox" @click="addTimeInThis(restart_before_eod.finlistval)" /></td>
+				<td>Restart core</td>
+				<td><input type="checkbox" @click="addTimeInThis(restart_before_eod.core)" /></td>
 			</tr>
 			<tr>
-				<td>Restart</td>
-				<td>If needed</td>
-				<td>Restart</td>
-				<td>If needed</td>
+				<td>Restart cs</td>
+				<td><input type="checkbox" @click="addTimeInThis(restart_before_eod.cs)" /></td>
+				<td>Restart cbc</td>
+				<td><input type="checkbox" @click="addTimeInThis(restart_before_eod.cbc)" /></td>
 			</tr>
 			<tr>
-				<td>Restart</td>
-				<td>If needed</td>
-				<td>Restart</td>
-				<td>If needed</td>
+				<td>Restart uniser</td>
+				<td><input type="checkbox" @click="addTimeInThis(restart_before_eod.uniser)" /></td>
+				<td>Restart was</td>
+				<td><input type="checkbox" @click="addTimeInThis(restart_before_eod.was)" /></td>
 			</tr>
 			<tr>
-				<td>Restart</td>
-				<td>If needed</td>
-				<td colspan="2"><input type="checkbox"></td>
+				<td>Restart finrpt</td>
+				<td><input type="checkbox" @click="addTimeInThis(restart_before_eod.finrpt)" /></td>
+				<td>Restart cups</td>
+				<td><input type="checkbox" @click="addTimeInThis(restart_before_eod.cups)" /></td>
 			</tr>
 		</tbody>
 	</table>
@@ -271,36 +273,40 @@
 			<tr>
 				<td colspan="4">After HSCOD</td>
 			</tr>
-      <tr v-for="item in bankLevels">
-        <td style="width: 33%" v-text="item.name"></td>
-        <td style="width: 33%"><input @change="addTimeInThis(item)" :disabled="item.time.length > 0" type="checkbox" :checked="item.time"></td>
-        <td style="width: 33%"><span v-text="item.time"></span></td>
-      </tr>
+			<tr v-for="item in bankLevels">
+				<td style="width: 33%" v-text="item.name"></td>
+				<td style="width: 33%"><input @change="addTimeInThis(item)" type="checkbox" :checked="item.time"></td>
+				<td style="width: 33%"><span v-text="item.time"></span></td>
+			</tr>
 		</tbody>
 	</table>
-  
+
 	<table>
 		<tbody>
 			<tr>
 				<td>Copy EOD Log in 10.10.155.113</td>
-				<td><input v-model="after_eod.copy_log" type="checkbox"></td>
+				<td><input @click="addTimeInThis(after_eod.copy_log)"   :checked="after_eod.copy_log.time.length > 0" type="checkbox"></td>
+				<td v-text="after_eod.copy_log.time"></td>
 			</tr>
 			<tr>
 				<td>Last Arc after EOD</td>
-				<td><input v-model="after_eod.last_arc_after_eod" type="text"></td>
+				<td><input v-model="after_eod.last_arc_after_eod.count" type="text"></td>
+				<td v-text="after_eod.last_arc_after_eod.time"></td>
 			</tr>
 			<tr>
 				<td>SOD Count</td>
-				<td><input v-model="after_eod.sod_count" type="number"></td>
+				<td><input v-model="after_eod.sod_count.count" type="number"></td>
+				<td v-text="after_eod.sod_count.time"></td>
 			</tr>
 			<tr>
 				<td>GUP Count</td>
-				<td><input v-model="after_eod.gup_log" type="number"></td>
+				<td><input v-model="after_eod.gup_count.count" type="number"></td>
+				<td v-text="after_eod.gup_count.time"></td>
 			</tr>
 			<tr>
 				<td>Check Batch Job</td>
-				<td><input v-model="after_eod.check_batch_job" type="checkbox"></td>
-			</tr>
+				<td><input @click="addTimeInThis(after_eod.check_batch_job)" :checked="after_eod.check_batch_job.time" type="checkbox"></td>
+				<td v-text="after_eod.check_batch_job.time"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -319,44 +325,44 @@
 			<tr>
 				<td>was</td>
 				<td>Take backup of temp, wstemp, workspace</td>
-				<td><input :disabled="restarted.backup" type="checkbox" @change="restart('backup')"></td>
-				<td v-html="restarted.backup"></td>
+				<td><input type="checkbox" :checked="restart_after_eod.backup.time.length > 0"  @click="addTimeInThis(restart_after_eod.backup)"></td>
+				<td v-html="restart_after_eod.backup.time"></td>
 			</tr>
 			<tr>
 				<td>was</td>
 				<td>./startServer.sh server1</td>
-				<td><input :disabled="restarted.was" type="checkbox" @change="restart('was')"></td>
-				<td v-html="restarted.was"></td>
+				<td><input type="checkbox" :checked="restart_after_eod.was.time.length > 0"  @click="addTimeInThis(restart_after_eod.was)"></td>
+				<td v-html="restart_after_eod.was.time"></td>
 			</tr>
 			<tr>
 				<td>cs</td>
 				<td>./start</td>
-				<td><input :disabled="restarted.cs" type="checkbox" @change="restart('cs')"></td>
-				<td v-html="restarted.cs"></td>
+				<td><input type="checkbox" :checked="restart_after_eod.cs.time.length > 0"  @click="addTimeInThis(restart_after_eod.cs)"></td>
+				<td v-html="restart_after_eod.cs.time"></td>
 			</tr>
 			<tr>
 				<td>core</td>
 				<td>./start-coresessionDANPHE</td>
-				<td><input :disabled="restarted.core" type="checkbox" @change="restart('core')"></td>
-				<td v-html="restarted.core"></td>
+				<td><input type="checkbox" :checked="restart_after_eod.core.time.length > 0"  @click="addTimeInThis(restart_after_eod.core)"></td>
+				<td v-html="restart_after_eod.core.time"></td>
 			</tr>
 			<tr>
 				<td>fin</td>
 				<td>./start-finlistvalDANPHE</td>
-				<td><input :disabled="restarted.fin" type="checkbox" @change="restart('fin')"></td>
-				<td v-html="restarted.fin"></td>
+				<td><input type="checkbox" :checked="restart_after_eod.fin.time.length > 0"  @click="addTimeInThis(restart_after_eod.fin)"></td>
+				<td v-html="restart_after_eod.fin.time"></td>
 			</tr>
 			<tr>
 				<td>uni</td>
 				<td>./start-uniserDANPHE</td>
-				<td><input :disabled="restarted.uni" type="checkbox" @change="restart('uni')"></td>
-				<td v-html="restarted.uni"></td>
+				<td><input type="checkbox" :checked="restart_after_eod.uni.time.length > 0"  @click="addTimeInThis(restart_after_eod.uni)"></td>
+				<td v-html="restart_after_eod.uni.time"></td>
 			</tr>
 			<tr>
 				<td>cbc</td>
 				<td>./start-cbcDANPHE</td>
-				<td><input :disabled="restarted.cbc" type="checkbox" @change="restart('cbc')"></td>
-				<td v-html="restarted.cbc"></td>
+				<td><input type="checkbox" :checked="restart_after_eod.cbc.time.length > 0"  @click="addTimeInThis(restart_after_eod.cbc)"></td>
+				<td v-html="restart_after_eod.cbc.time"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -444,6 +450,16 @@
 				<td>Location of file:- C:\Users\bi001\Desktop\</td>
 				<td> Please use table 'Migrationstats' in NIC_JetDS to <br/> confirm the Start/End of
 					<br/> Migration. (C:\Users\bi001\Desktop)</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<div class="w-full h-30 p-10" cols="30" contenteditable="true"></div>
+				</td>
 			</tr>
 		</tbody>
 	</table>
